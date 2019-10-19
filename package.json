@@ -32,5 +32,11 @@
     "rollup-plugin-replace": "^2.0.0",
     "rollup-plugin-svelte": "^5.0.1",
     "rollup-plugin-terser": "^4.0.4"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 2018,
+      "sourceType": "module"
+    }
   }
 }
