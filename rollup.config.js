@@ -1,8 +1,10 @@
 import resolve from 'rollup-plugin-node-resolve';
+import alias from 'rollup-plugin-alias';
 import replace from 'rollup-plugin-replace';
 import commonjs from 'rollup-plugin-commonjs';
 import builtins from 'rollup-plugin-node-builtins';
 import svelte from 'rollup-plugin-svelte';
+import globals from "rollup-plugin-node-globals";
 import { terser } from 'rollup-plugin-terser';
 import config from 'sapper/config/rollup.js';
 import pkg from './package.json';
@@ -24,6 +26,11 @@ export default {
 		output: config.client.output(),
 		plugins: [
 			json(),
+			alias({
+				entries: [
+					{ find: '@app/db', replacement: 'src/clientdb.js' }
+				]
+			}),
 			replace({
 				values: {
 					'process.browser': true,
@@ -43,6 +50,7 @@ export default {
 				dedupe
 			}),
 			commonjs(),
+			globals(),
 
 			!dev && terser({
 				module: true
@@ -60,6 +68,11 @@ export default {
 		output: config.server.output(),
 		plugins: [
 			json(),
+			alias({
+				entries: [
+					{ find: '@app/db', replacement: 'src/serverdb.js' }
+				]
+			}),
 			replace({
 				values: {
 					'process.browser': false,

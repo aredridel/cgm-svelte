@@ -1,16 +1,22 @@
+<script context="module">
+	import db from "@app/db";
+	console.log('wat');
+
+	export async function preload(page, session) {
+		return { db: await db }
+	}
+</script>
+
 <script>
 	import { onMount } from 'svelte';
-
-	let db;
-	onMount(async () => {
-		db = await import('../clientdb.js');
-	  })
-		
-
+	export let db;
 </script>
 
 <svelte:head>
 	<title>Sapper project template</title>
 </svelte:head>
 
-{db}
+{#each Object.keys(db.collections.items) as x}
+{x}<br>
+{/each}
+

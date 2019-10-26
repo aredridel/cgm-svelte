@@ -1,6 +1,6 @@
 import { join } from 'path';
 import { Worker } from 'worker_threads';
-import dbP from "./db.js";
+import dbP from "@app/db";
 
 export default async function run(plugins) {
   const db = await dbP;

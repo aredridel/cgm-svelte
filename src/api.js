@@ -1,7 +1,20 @@
 import polka from "polka";
-import db from "./db.js";
+import dbP from "@app/db";
 
-export default db.then(db => polka()
-    .use(serveDB(db))
-    .use('/', async (req, res) => res.end(await db.query('select').where(["age", "=", 20]).exec()))
-);
+const mod = (async () => {
+
+    const db = await dbP;
+
+    const { app } = db.server({
+        startServer: false
+    });
+
+    return polka()
+        .use('/db', app)
+        .use('/', async (req, res) => {
+            return res.end(await db.query('select').where(["age", "=", 20]).exec())
+        })
+	console.log('hello');
+})();
+
+export default mod;

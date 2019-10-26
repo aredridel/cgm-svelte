@@ -12,16 +12,18 @@ main(async () => {
 
 	const plugins = ['plugin-bridge.js'];
 
-	await runPlugins(plugins);
+//	await runPlugins(plugins);
 
-	polka() // You can also use Express
-		.use('/api', await api)
-		.use(
-			compression({ threshold: 0 }),
-			sirv('static', { dev }),
-			sapper.middleware()
-		)
-		.listen(PORT, err => {
-			if (err) console.log('error', err);
-		});
+	return new Promise(async (y, n) => {
+		polka() // You can also use Express
+			.use('/api', await api)
+			.use(
+				compression({ threshold: 0 }),
+				sirv('static', { dev }),
+				sapper.middleware()
+			)
+			.listen(PORT, err => {
+				if (err) n(err);
+			});
+	});
 });
