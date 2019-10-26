@@ -1,5 +1,5 @@
 import sirv from 'sirv';
-import polka from 'polka';
+import express from 'express';
 import compression from 'compression';
 import * as sapper from '@sapper/server';
 import api from "./api.js";
@@ -15,7 +15,7 @@ main(async () => {
 //	await runPlugins(plugins);
 
 	return new Promise(async (y, n) => {
-		polka() // You can also use Express
+		express() // You can also use Express
 			.use('/api', await api)
 			.use(
 				compression({ threshold: 0 }),

@@ -13,12 +13,11 @@ import serverPlugin from "rxdb/plugins/server";
 RxDB.plugin(serverPlugin);
 
 const db = RxDB.create({
-  name:'db/db.db',
+  name: 'db',
   adapter: 'websql',
   multiInstance: true,
   queryChangeDetection: true,
 });
-
 
 import configure from "./schema.js";
 
