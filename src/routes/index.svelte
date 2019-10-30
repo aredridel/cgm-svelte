@@ -1,6 +1,5 @@
 <script context="module">
 	import db from "@app/db";
-	console.log('wat');
 
 	export async function preload(page, session) {
 		return { db: await db }

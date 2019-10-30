@@ -23,13 +23,11 @@ async function sync(dbP) {
   const db = await dbP;
 
   for (const k of Object.keys(db.collections)) {
-    const remote = `http://localhost:3000/api/db/${k}`
+    const remote = `http://localhost:3000/db/${k}`
     console.log(remote) ;
     const r = db.collections[k].sync({
       remote
     });
-
-    r.change$.subscribe(change => console.dir(change));
   }
 
   window.db=db;
