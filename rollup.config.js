@@ -1,6 +1,6 @@
 import resolve from 'rollup-plugin-node-resolve';
 import alias from 'rollup-plugin-alias';
-import replace from 'rollup-plugin-replace';
+import replace from '@rollup/plugin-replace';
 import commonjs from 'rollup-plugin-commonjs';
 import builtins from 'rollup-plugin-node-builtins';
 import svelte from 'rollup-plugin-svelte';
