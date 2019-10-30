@@ -13,7 +13,14 @@ import json from "rollup-plugin-json";
 const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
 
-const onwarn = (warning, onwarn) => (warning.code === 'CIRCULAR_DEPENDENCY' && /[/\\]@sapper[/\\]/.test(warning.message)) || onwarn(warning);
+const onwarn = (warning, onwarn) => {
+	if (warning.code === 'CIRCULAR_DEPENDENCY' && /[/\\]@sapper[/\\]/.test(warning.message)) return;
+	if (warning.code === 'CIRCULAR_DEPENDENCY' && /node_modules\/glob\//.test(warning.importer)) return;
+	if (warning.code === 'CIRCULAR_DEPENDENCY' && /node_modules\/pouchdb-utils\//.test(warning.importer)) return;
+	if (warning.code === 'EVAL' && /node_modules\/depd\//.test(warning.loc.file)) return;
+	onwarn(warning);
+};
+
 const dedupe = importee => importee === 'svelte' || importee.startsWith('svelte/');
 
 const plugins = [
