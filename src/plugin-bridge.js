@@ -4,7 +4,7 @@ setInterval(() => {
 	worker.parentPort.postMessage({
 		type: 'sgv',
 		content: {
-			_t: Date.now(),
+			ts: Date.now(),
 			sgv: Math.floor(Math.random() * 100 + 100)
 		}
 	});

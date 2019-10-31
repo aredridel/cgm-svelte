@@ -4,18 +4,21 @@
 	export async function preload(page, session) {
 		return { db: await db }
 	}
+
 </script>
 
 <script>
 	import { onMount } from 'svelte';
 	export let db;
+	const latest = db.collections.sgv.$;
 </script>
 
 <svelte:head>
 	<title>Sapper project template</title>
 </svelte:head>
 
-{#each Object.keys(db.collections.items) as x}
-{x}<br>
-{/each}
+
+{#if $latest}
+	Latest {$latest.sgv}
+{/if}
 

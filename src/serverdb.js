@@ -14,7 +14,7 @@ RxDB.plugin(storage);
 RxDB.plugin(serverPlugin);
 
 const db = RxDB.create({
-  name: 'db/',
+  name: 'db',
   adapter: 'websql',
   multiInstance: true,
   queryChangeDetection: true,

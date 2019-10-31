@@ -28,10 +28,13 @@ export default async function run(plugins) {
     });
   }
 
-  function handleMessage(message) {
-    if (message.type == 'sgv') {
-      db.post(message.content);
-      console.log('sgv', message.content);
+  async function handleMessage(message) {
+    try {
+      if (message.type == 'sgv') {
+        await db.collections.sgv.insert(message.content);
+      }
+    }catch (e) {
+      console.warn(e);
     }
   }
   for (const plugin of plugins) {

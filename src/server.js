@@ -15,7 +15,7 @@ main(async () => {
 
     const plugins = ['plugin-bridge.js'];
 
-    //	await runPlugins(plugins);
+    await runPlugins(plugins);
 
     const db = await dbP;
     const { app: dbserver } = db.server({
