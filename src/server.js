@@ -5,7 +5,7 @@ import * as sapper from '@sapper/server';
 import api from "./api.js";
 import runPlugins from "./plugins.js";
 import main from "async-main";
-import dbP from "@app/db";
+import dbP from "@@app/db";
 import pino from "express-pino-logger";
 
 

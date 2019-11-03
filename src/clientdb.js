@@ -10,9 +10,8 @@ const db = createDb();
 
 async function createDb() {
   const db = await RxDB.create({
-    name: 'foo',          
+    name: 'db',          
     adapter: 'idb',         
-    multiInstance: true,     
     queryChangeDetection: true
   });
 
@@ -24,8 +23,11 @@ async function sync(dbP) {
 
   for (const k of Object.keys(db.collections)) {
     const remote = `http://localhost:3000/db/${k}`
-    console.log(remote) ;
     const r = db.collections[k].sync({
+      options: {
+        live: true,
+        retry: true
+      },
       remote
     });
   }

@@ -1,5 +1,5 @@
 <script context="module">
-	import db from "@app/db";
+	import db from "@@app/db";
 
 	export async function preload(page, session) {
 		return { db: await db }
@@ -8,17 +8,25 @@
 </script>
 
 <script>
-	import { onMount } from 'svelte';
 	export let db;
-	const latest = db.collections.sgv.$;
+	const latest = db.collections.sgv.find({
+		ts: {$gte: null}
+	})
+		.sort('-ts')
+		.limit(120)
+		.$
 </script>
 
 <svelte:head>
-	<title>Sapper project template</title>
+	<title>Stored Glucose Values</title>
 </svelte:head>
 
 
 {#if $latest}
-	Latest {$latest.sgv}
+	<table>
+		{#each $latest as entry}
+			<tr><th>{new Date(entry.ts).toLocaleTimeString()}</th><td>{entry.sgv}</td></tr>
+		{/each}
+	</table>
 {/if}
 

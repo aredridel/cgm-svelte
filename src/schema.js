@@ -1,11 +1,12 @@
 const sgvSchema  ={
   title: "stored glucose values",
-  version: 0,
+  version: 1,
   decription: "stored glucose values",
   type: "object",
   properties: {
     ts: {
       type: "number",
+      index: true,
     },
     sgv: {
       type: "number"
@@ -17,14 +18,14 @@ const sgvSchema  ={
 export default async function configure(dbP) {
     const db = await dbP;
 
-    await db.collection({
+    const sgv = await db.collection({
         name: 'sgv',
-        schema: sgvSchema
+        schema: sgvSchema,
+        autoMigrate: true,
+        migrationStrategies: {
+          1: doc => doc
+        }
     });
-
     db.collections.sgv.$.subscribe(x => console.log('sgv', x))
-
-    console.warn('x', await db.collections.sgv.find().exec());
-
     return db;
 }

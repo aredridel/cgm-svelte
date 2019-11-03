@@ -4,8 +4,6 @@ import RxDB from "rxdb";
 import serverPlugin from "rxdb/plugins/server";
 import configure from "./schema.js";
 
-RxDB.PouchDB.__defaults= { prefix: 'db/' }
-
 // This is shenanigans
 PouchDB.plugin(storage);
 

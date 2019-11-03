@@ -35,7 +35,7 @@ export default {
 			json(),
 			alias({
 				entries: [
-					{ find: '@app/db', replacement: 'src/clientdb.js' }
+					{ find: '@@app/db', replacement: 'src/clientdb.js' }
 				]
 			}),
 			replace({
@@ -77,7 +77,7 @@ export default {
 			json(),
 			alias({
 				entries: [
-					{ find: '@app/db', replacement: 'src/serverdb.js' }
+					{ find: '@@app/db', replacement: 'src/serverdb.js' }
 				]
 			}),
 			replace({

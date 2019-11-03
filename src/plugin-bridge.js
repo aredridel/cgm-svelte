@@ -8,4 +8,4 @@ setInterval(() => {
 			sgv: Math.floor(Math.random() * 100 + 100)
 		}
 	});
-}, 30000);
+}, 15000);
