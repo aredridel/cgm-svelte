@@ -1,0 +1,33 @@
+diff --git a/node_modules/rxdb/dist/es/plugins/server.js b/node_modules/rxdb/dist/es/plugins/server.js
+index afbbd68..2c1f962 100644
+--- a/node_modules/rxdb/dist/es/plugins/server.js
++++ b/node_modules/rxdb/dist/es/plugins/server.js
+@@ -7,17 +7,9 @@ import ReplicationPlugin from './replication';
+ Core.plugin(ReplicationPlugin);
+ import RxDBWatchForChangesPlugin from './watch-for-changes';
+ Core.plugin(RxDBWatchForChangesPlugin);
+-var ExpressPouchDB;
++import ExpressPouchDB from "express-pouchdb";;
+ 
+-try {
+-  ExpressPouchDB = require('express-pouchdb');
+-} catch (error) {
+-  console.error('Since version 8.4.0 the module \'express-pouchdb\' is not longer delivered with RxDB.\n' + 'You can install it with \'npm install express-pouchdb\'');
+-} // we have to clean up after tests so there is no stupid logging
+-// @link https://github.com/pouchdb/pouchdb-server/issues/226
+-
+-
+-var PouchdbAllDbs = require('pouchdb-all-dbs');
++import PouchdbAllDbs from 'pouchdb-all-dbs';
+ 
+ PouchdbAllDbs(PouchDB);
+ var APP_OF_DB = new WeakMap();
+@@ -53,7 +45,7 @@ function tunnelCollectionPath(db, path, app, colName) {
+   var collectionPath = pathWithSlash + colName;
+   app.use(collectionPath, function (req, res, next) {
+     if (req.baseUrl.endsWith(collectionPath)) {
+-      var to = normalizeDbName(db) + '-rxdb-0-' + colName;
++      var to = normalizeDbName(db) + '-rxdb-' + db[colName].schema.version + '-' + colName;
+       var toFull = req.originalUrl.replace(collectionPath, pathWithSlash + to);
+       req.originalUrl = toFull;
+     }

@@ -49,7 +49,7 @@ self.addEventListener('fetch', event => {
 	}
 
 	// skip database requests
-	if (url.host === self.location.host && /^\/db/.test(url.pathname)) return;
+	if (url.host === self.location.host && /^\/db\//.test(url.pathname)) return;
 
 	// for pages, you might want to serve a shell `service-worker-index.html` file,
 	// which Sapper has generated for you. It's not right for every

@@ -8,7 +8,6 @@ import main from "async-main";
 import dbP from "@@app/db";
 import pino from "express-pino-logger";
 
-
 main(async () => {
     const { PORT, NODE_ENV } = process.env;
     const dev = NODE_ENV === 'development';
