@@ -5,7 +5,7 @@ import * as sapper from '@sapper/server';
 import api from "./api.js";
 import runPlugins from "./plugins.js";
 import main from "async-main";
-import dbP from "@@app/db";
+import db from "@@app/db";
 import pino from "express-pino-logger";
 
 main(async () => {
@@ -16,8 +16,7 @@ main(async () => {
 
     await runPlugins(plugins);
 
-    const db = await dbP;
-    const { app: dbserver } = db.server({
+    const { app: dbserver } = (await db).server({
 		startServer: false
     });
 
