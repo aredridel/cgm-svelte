@@ -15,12 +15,27 @@
 		.sort('-ts')
 		.limit(120)
 		.$
+
+	const latest20 = db.collections.sgv.find({
+		ts: {$gte: null}
+	})
+		.sort('-ts')
+		.limit(20)
+		.$
 </script>
 
 <svelte:head>
 	<title>Stored Glucose Values</title>
 </svelte:head>
 
+
+{#if $latest20}
+	<svg viewBox="0 0 100 20">
+		{#each $latest20 as entry, index}
+			<circle r="1" cx={index * 5} cy={200 / entry.sgv * 10} fill="#000" />
+		{/each}
+	</svg>
+{/if}
 
 {#if $latest}
 	<table>
