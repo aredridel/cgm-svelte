@@ -1,14 +1,22 @@
 <script context="module">
-	import db from "@@app/db";
+	import { db, syncs } from "@@app/db";
+	import { empty } from "rxjs";
 
 	export async function preload(page, session) {
-		return { db: await db }
+		const sync = await syncs;
+		const sgv = sync.sgv ? sync.sgv : { change$: empty() };
+		return { db: await db, sgvSync: sgv };
 	}
 
 </script>
 
 <script>
-	export let db;
+import { interval } from "rxjs";
+import { switchMap, distinctUntilChanged } from "rxjs/operators";
+	export let db, sgvSync;
+	const change = sgvSync.change$;
+	const timeSinceChange = change.pipe(switchMap(() => interval(1000)))
+
 	const latest = db.collections.sgv.find({
 		ts: {$gte: null}
 	})
@@ -28,6 +36,9 @@
 	<title>Stored Glucose Values</title>
 </svelte:head>
 
+{#if $timeSinceChange > 15}
+	Last change {$timeSinceChange} seconds ago
+{/if}
 
 {#if $latest20}
 	<svg viewBox="0 0 100 20">

@@ -6,7 +6,8 @@ import configure from "./schema.js";
 RxDB.plugin(idbAdapter);
 RxDB.plugin(httpAdapter);
 
-const db = createDb();
+const db = createDb().then(configure);
+const syncs = db.then(sync);
 
 async function createDb() {
   const db = await RxDB.create({
@@ -15,27 +16,22 @@ async function createDb() {
     queryChangeDetection: true
   });
 
-  return db;
-}
-
-async function sync(dbP) {
-  const db = await dbP;
-
-  for (const k of Object.keys(db.collections)) {
-    const remote = `http://localhost:4000/db/${k}`
-    const r = db.collections[k].sync({
-      options: {
-        live: true,
-        retry: true
-      },
-      remote
-    });
-  }
-
   window.db=db;
 
   return db;
 }
 
+async function sync(db) {
+  for (const k of Object.keys(db.collections)) {
+    return Object.entries(db.collections).reduce((a, [k, v]) => (db.collections[k] ? { ...a, [k]: db.collections[k].sync({
+      options: {
+        live: true,
+        retry: true
+      },
+      remote: `http://localhost:4000/db/${k}`
+    })}: a), {});
+  }
+}
 
-export default sync(configure(db));
+export default db;
+export { syncs, db };

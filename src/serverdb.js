@@ -12,6 +12,9 @@ const db = RxDB.create({
   adapter: 'websql',
   multiInstance: false,
   queryChangeDetection: true,
-});
+}).then(configure);
 
-export default configure(db);
+const syncs = {}
+
+export default db;
+export { syncs, db };
