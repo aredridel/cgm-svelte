@@ -12,7 +12,7 @@ main(async () => {
     const { PORT, NODE_ENV } = process.env;
     const dev = NODE_ENV === 'development';
 
-    const plugins = ['plugin-bridge.js'];
+    const plugins = ['plugin-sampledata.js'];
 
     await runPlugins(plugins);
 
