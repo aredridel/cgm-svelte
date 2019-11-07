@@ -1,7 +1,5 @@
-const worker =  require('worker_threads');
-
 setInterval(() => {
-	worker.parentPort.postMessage({
+	global.postMessage({
 		type: 'sgv',
 		content: {
 			ts: Date.now(),

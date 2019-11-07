@@ -24,7 +24,7 @@ const onwarn = (warning, onwarn) => {
 const dedupe = importee => importee === 'svelte' || importee.startsWith('svelte/');
 
 const plugins = [
-	'plugin-bridge.js'
+	'plugin-sampledata.js'
 ];
 
 export default {
@@ -70,7 +70,7 @@ export default {
 	server: {
 		input: {
 			...config.server.input(), 
-			'plugin-bridge': 'src/plugin-bridge.js',
+			'plugin-sampledata': 'src/plugin-sampledata.js',
 		},
 		output: config.server.output(),
 		plugins: [

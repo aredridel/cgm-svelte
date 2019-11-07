@@ -9,10 +9,10 @@ import db from "@@app/db";
 import pino from "express-pino-logger";
 
 main(async () => {
-    const { PORT, NODE_ENV } = process.env;
+    const { PORT, NODE_ENV, PLUGINS } = process.env;
     const dev = NODE_ENV === 'development';
 
-    const plugins = ['plugin-sampledata.js'];
+    const plugins = (PLUGINS || "").split(" ").filter(Boolean);
 
     await runPlugins(plugins);
 
