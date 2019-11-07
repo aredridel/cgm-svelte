@@ -11,22 +11,21 @@
 </script>
 
 <script>
-import { interval } from "rxjs";
-import { switchMap, distinctUntilChanged } from "rxjs/operators";
+	import { interval } from "rxjs";
+	import { switchMap, map, distinctUntilKeyChanged } from "rxjs/operators";
+	import Chart from "../components/Chart.svelte";
+
 	export let db, sgvSync;
 	const change = sgvSync.change$;
 	const timeSinceChange = change.pipe(switchMap(() => interval(1000)))
 
-	const latest = db.collections.sgv.find({
-		ts: {$gte: null}
-	})
+	const latest = db.collections.sgv.find()
 		.sort('-ts')
 		.limit(120)
 		.$
+			
 
-	const latest20 = db.collections.sgv.find({
-		ts: {$gte: null}
-	})
+	const latest20 = db.collections.sgv.find()
 		.sort('-ts')
 		.limit(20)
 		.$
@@ -41,11 +40,7 @@ import { switchMap, distinctUntilChanged } from "rxjs/operators";
 {/if}
 
 {#if $latest20}
-	<svg viewBox="0 0 100 20">
-		{#each $latest20 as entry, index}
-			<circle r="1" cx={index * 5} cy={200 / entry.sgv * 10} fill="#000" />
-		{/each}
-	</svg>
+	<Chart data={$latest20} />
 {/if}
 
 {#if $latest}
