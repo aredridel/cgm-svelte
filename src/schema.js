@@ -1,3 +1,6 @@
+import mainLogger from "./logger.js";
+const logger = mainLogger.child({area: 'db'});
+
 const sgvSchema = {
   title: "stored glucose values",
   version: 2,
@@ -45,6 +48,6 @@ export default async function configure(dbP) {
       2: doc => Object.assign({}, doc, { direction: "NONE" })
     }
   });
-  db.collections.sgv.$.subscribe(x => console.log("sgv", x));
+  db.collections.sgv.$.subscribe(event => logger.debug({sgv: event}))
   return db;
 }

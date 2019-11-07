@@ -1,21 +1,22 @@
 {
-  "name": "TODO",
-  "description": "TODO",
+  "name": "cgm-svelte",
+  "description": "A CGM monitor",
   "version": "0.0.1",
   "scripts": {
     "postinstall": "patch-package",
-    "dev": "sapper dev",
+    "dev": "env-cmd sapper dev",
     "build": "sapper build --legacy",
     "export": "sapper export --legacy",
     "start": "node __sapper__/build",
-    "cy:run": "cypress run",
-    "cy:open": "cypress open",
+    "cy:run": "env-cmd cypress run",
+    "cy:open": "env-cmd cypress open",
     "test": "run-p --race dev cy:run"
   },
   "dependencies": {
     "@aredridel/cgm-plugin-dexcom-share": "^2.0.0",
     "async-main": "^1.0.2",
     "compression": "^1.7.1",
+    "env-cmd": "^10.0.1",
     "express-pino-logger": "^4.0.0",
     "express-pouchdb": "^4.2.0",
     "patch-package": "^6.2.0",
