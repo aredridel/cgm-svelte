@@ -27,7 +27,7 @@
     "pouchdb-adapter-node-websql": "^7.0.0",
     "pouchdb-replication": "^7.1.1",
     "resolve": "^1.12.0",
-    "rxdb": "^8.7.2",
+    "rxdb": "^13.13.6",
     "rxjs": "^6.5.3",
     "sirv": "^0.4.0",
     "tiny-worker": "^2.3.0"
