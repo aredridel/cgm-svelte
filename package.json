@@ -15,7 +15,7 @@
   "dependencies": {
     "@aredridel/cgm-plugin-dexcom-share": "^2.0.0",
     "async-main": "^1.0.2",
-    "compression": "^1.7.1",
+    "compression": "^1.8.1",
     "env-cmd": "^10.0.1",
     "express-pino-logger": "^5.0.0",
     "express-pouchdb": "^4.2.0",
